@@ -5,8 +5,7 @@
 
 import os
 import sys
-# extract documentation from the samples
-sys.path.insert(0, os.path.abspath('../../src/demo'))
+# samples docs
 sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
