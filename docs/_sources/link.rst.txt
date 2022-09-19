@@ -1,4 +1,4 @@
 Readme File
 ===========
 
-.. include:: ../../README.rst
+.. include:: ../../samples/README.rst
