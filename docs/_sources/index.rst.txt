@@ -11,6 +11,5 @@ Lifespline AWS Samples
    :caption: Contents:
 
    src/about
-   src/test
-   src/link
+   src/samples
    src/contributing
