@@ -12,4 +12,5 @@ Lifespline AWS Samples
 
    src/about
    src/test
+   link
    src/contributing
