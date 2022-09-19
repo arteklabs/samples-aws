@@ -1,3 +1,4 @@
 sphinx
 invoke
 furo
+nbsphinx-link
