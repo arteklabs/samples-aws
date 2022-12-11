@@ -23,7 +23,7 @@ A ``profile`` is a collection of settings and credentials that you can apply to 
 
 Notice that is has been created in ``~/.aws/config``:
 
-.. code-block:: json
+.. code-block:: cfg
 
    [profile PROFILE]
    sso_session = SSO-PORTAL
@@ -59,7 +59,7 @@ SDK/CDK Authentication
 
 When using aws sso login on AWS CLI v2 as of July 27th, 2020, the credentials are stored so they will work with the CLI itself (v2) but don't work on the AWS SDKs and other tools that expect credentials to be readable from  ``~/.aws/credentials`` (v1). Until a solution is implemented in AWS CLI v2 is is necessary to update the ``~/.aws/credentials`` file for AWS SSO users by updating/creating the corresponding profile section in ``~/.aws/credentials`` with temporary role credentials. The ``~/.aws/credentials`` file has the following structure:
 
-.. code-block:: json
+.. code-block:: cfg
 
    [default]
    aws_access_key = IAM_ACCESS_KEY_ID
