@@ -218,17 +218,17 @@ CLI default output format <span class="o">[</span>None<span class="o">]</span>: 
 </pre></div>
 </div>
 <p>Notice that is has been created in <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code>:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>[profile PROFILE]
-sso_session = SSO-PORTAL
-sso_account_id = 123456789ABC
-sso_role_name = ROLE
-region = REGION
-output = json
+<div class="highlight-cfg notranslate"><div class="highlight"><pre><span></span><span class="k">[profile PROFILE]</span><span class="w"></span>
+<span class="na">sso_session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">SSO-PORTAL</span><span class="w"></span>
+<span class="na">sso_account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">123456789ABC</span><span class="w"></span>
+<span class="na">sso_role_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ROLE</span><span class="w"></span>
+<span class="na">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">REGION</span><span class="w"></span>
+<span class="na">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">json</span><span class="w"></span>
 
-[sso-session SSO-PORTAL]
-sso_region = REGION
-sso_start_url = https://SSO-PORTAL-URL.awsapps.com/start/
-sso_registration_scopes = sso:account:access
+<span class="k">[sso-session SSO-PORTAL]</span><span class="w"></span>
+<span class="na">sso_region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">REGION</span><span class="w"></span>
+<span class="na">sso_start_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://SSO-PORTAL-URL.awsapps.com/start/</span><span class="w"></span>
+<span class="na">sso_registration_scopes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">sso:account:access</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The profile is given temporary access credentials through (<code class="docutils literal notranslate"><span class="pre">sso/cache/*.json</span></code>):</p>
@@ -248,10 +248,10 @@ sso_registration_scopes = sso:account:access
 <section id="sdk-cdk-authentication">
 <h2>SDK/CDK Authentication<a class="headerlink" href="#sdk-cdk-authentication" title="Permalink to this heading">#</a></h2>
 <p>When using aws sso login on AWS CLI v2 as of July 27th, 2020, the credentials are stored so they will work with the CLI itself (v2) but don’t work on the AWS SDKs and other tools that expect credentials to be readable from  <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code> (v1). Until a solution is implemented in AWS CLI v2 is is necessary to update the <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code> file for AWS SSO users by updating/creating the corresponding profile section in <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code> with temporary role credentials. The <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code> file has the following structure:</p>
-<div class="highlight-json notranslate"><div class="highlight"><pre><span></span>[default]
-aws_access_key = IAM_ACCESS_KEY_ID
-aws_secret_access_key = IAM_ACCESS_KEY
-aws_session_token = TMP_ACCESS_TOKEN
+<div class="highlight-cfg notranslate"><div class="highlight"><pre><span></span><span class="k">[default]</span><span class="w"></span>
+<span class="na">aws_access_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">IAM_ACCESS_KEY_ID</span><span class="w"></span>
+<span class="na">aws_secret_access_key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">IAM_ACCESS_KEY</span><span class="w"></span>
+<span class="na">aws_session_token</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">TMP_ACCESS_TOKEN</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Extract the credentials stored at <code class="docutils literal notranslate"><span class="pre">~/.aws/config/sso/cache/*.json</span></code> to <code class="docutils literal notranslate"><span class="pre">~/.aws/credentials</span></code> by running:</p>
