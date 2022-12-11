@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'lifespline-docs'
+project = 'Arteklabs Skillset: AWS Samples'
 copyright = '2022, lifespline'
 author = 'lifespline'
 release = '1.0.0'

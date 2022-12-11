@@ -5,14 +5,6 @@ ARTechlabs Skillset: AWS Samples
    :maxdepth: 1
    :caption: Contents:
 
-   src/about
    src/samples
    src/contributing
-
-==================
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+   src/literature
