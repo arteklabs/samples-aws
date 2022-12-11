@@ -200,9 +200,27 @@
         <article role="main">
           <section id="aws-profile-authentication">
 <h1>AWS Profile Authentication<a class="headerlink" href="#aws-profile-authentication" title="Permalink to this heading">#</a></h1>
+<section id="about">
+<h2>About<a class="headerlink" href="#about" title="Permalink to this heading">#</a></h2>
+<p>A <code class="docutils literal notranslate"><span class="pre">profile</span></code> is a collection of settings and credentials that <code class="docutils literal notranslate"><span class="pre">authenticate</span></code> a requester together with an AWS API. This collection can be found at <code class="docutils literal notranslate"><span class="pre">~/.aws/config</span></code> and it contains the definitions of multiple AWS profiles:</p>
+<div class="highlight-cfg notranslate"><div class="highlight"><pre><span></span><span class="k">[profile PROFILE]</span><span class="w"></span>
+<span class="na">sso_session</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">SSO-PORTAL</span><span class="w"></span>
+<span class="na">sso_account_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">123456789ABC</span><span class="w"></span>
+<span class="na">sso_role_name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">ROLE</span><span class="w"></span>
+<span class="na">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">REGION</span><span class="w"></span>
+<span class="na">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">json</span><span class="w"></span>
+
+<span class="k">[sso-session SSO-PORTAL]</span><span class="w"></span>
+<span class="na">sso_region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">REGION</span><span class="w"></span>
+<span class="na">sso_start_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">https://SSO-PORTAL-URL.awsapps.com/start/</span><span class="w"></span>
+<span class="na">sso_registration_scopes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">sso:account:access</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Depending on the <code class="docutils literal notranslate"><span class="pre">role</span></code> that the <code class="docutils literal notranslate"><span class="pre">authenticated</span></code> profile can assume, temporary credentials are sent to the requester (<code class="docutils literal notranslate"><span class="pre">sso/cache/*.json</span></code>) enabling the requester to perform the authorized operations.</p>
+</section>
 <section id="cli-authentication">
 <h2>CLI Authentication<a class="headerlink" href="#cli-authentication" title="Permalink to this heading">#</a></h2>
-<p>A <code class="docutils literal notranslate"><span class="pre">profile</span></code> is a collection of settings and credentials that you can apply to a AWS CLI command. When you specify a profile to run a command, the settings and credentials are used to run that command. Multiple SSO profiles can be stored in the <code class="docutils literal notranslate"><span class="pre">config</span></code> (<code class="docutils literal notranslate"><span class="pre">.aws/config</span></code>) and <code class="docutils literal notranslate"><span class="pre">credentials</span></code> (<code class="docutils literal notranslate"><span class="pre">.aws/credentials</span></code>, <code class="docutils literal notranslate"><span class="pre">sso/cache/*.json</span></code>) files. If your profile has SSO, configure the profile with (having installed the <code class="docutils literal notranslate"><span class="pre">aws-cli-v2</span></code>):</p>
+<p>Having installed the <code class="docutils literal notranslate"><span class="pre">aws-cli-v2</span></code>, configure your AWS profile with:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ aws sso configure --profile <span class="nv">$PROFILE</span>
 SSO session name <span class="o">(</span>Recommended<span class="o">)</span>: SSO-PORTAL
 SSO start URL <span class="o">[</span>None<span class="o">]</span>: https://SSO-PORTAL-URL.awsapps.com/start/
@@ -231,11 +249,11 @@ CLI default output format <span class="o">[</span>None<span class="o">]</span>: 
 <span class="na">sso_registration_scopes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">sso:account:access</span><span class="w"></span>
 </pre></div>
 </div>
-<p>The profile is given temporary access credentials through (<code class="docutils literal notranslate"><span class="pre">sso/cache/*.json</span></code>):</p>
+<p>Authorize your profile with <code class="docutils literal notranslate"><span class="pre">ROLE</span></code> by running:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ aws sso login --profile <span class="nv">$PROFILE</span>
 </pre></div>
 </div>
-<p>The profile role temporary credentials provided by the SSO authentication + authorization are stored locally at <code class="docutils literal notranslate"><span class="pre">~/.aws/config/sso/cache/*.json</span></code>. These credentials enable the <code class="docutils literal notranslate"><span class="pre">aws-cli</span></code> to request services to the AWS API. The credentials have the following structure:</p>
+<p>The authorization returns temporary credentials (<code class="docutils literal notranslate"><span class="pre">sso/cache/*.json</span></code>). The credentials have the following structure:</p>
 <div class="highlight-json notranslate"><div class="highlight"><pre><span></span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;startUrl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://SSO-PORTAL-URL.awsapps.com/start/&quot;</span><span class="p">,</span><span class="w"></span>
 <span class="w">    </span><span class="nt">&quot;region&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;REGION&quot;</span><span class="p">,</span><span class="w"></span>
@@ -317,6 +335,7 @@ CLI default output format <span class="o">[</span>None<span class="o">]</span>: 
           <div class="toc-tree">
             <ul>
 <li><a class="reference internal" href="#">AWS Profile Authentication</a><ul>
+<li><a class="reference internal" href="#about">About</a></li>
 <li><a class="reference internal" href="#cli-authentication">CLI Authentication</a></li>
 <li><a class="reference internal" href="#sdk-cdk-authentication">SDK/CDK Authentication</a></li>
 </ul>
