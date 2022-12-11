@@ -156,7 +156,7 @@ def docs(ctx, step='build', port=docker_host_sphinx_server_default_port, verbose
     if step == 'publish':
         docs(ctx,  step='build', port=port)
         cmds = [
-            "cp -a docs/sphinx/_build/html/. docs",
+            "cp -a docs/sphinx/_build/html/. docs/",
             "cd docs/sphinx",
             "make clean",
             "cd ../..",
